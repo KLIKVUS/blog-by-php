@@ -2,6 +2,7 @@
 const IS_DEBUG = false;
 
 const DATA_TEMPLATE = "core/section.tpl";
+const LINKS_TEMPLATE = "core/links.tpl";
 const EDIT_FORM_TEMPLATE = "core/edit-form.tpl";
 const REMOVE_FORM_TEMPLATE = "core/remove-form.tpl";
 

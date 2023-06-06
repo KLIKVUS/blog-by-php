@@ -85,16 +85,17 @@ function read_data() {
 }
 
 function built_data($params) {
-    $class = "hidden";
-    if(isset($_SESSION["admin"])) $class = "";
-
     $tpl = file_get_contents(DATA_TEMPLATE);
     $tpl = str_replace("{{TITLE}}", $params["title"], $tpl);
     $tpl = str_replace("{{TEXT}}", nl2br($params["msg"]), $tpl);
     $tpl = str_replace("{{DATE_CREATED}}", date("d-m-y H:i", $params["created"]), $tpl);
-    $tpl = str_replace("{{CLASS_HIDDEN}}", $class, $tpl);
-    $tpl = str_replace("{{ID_EDIT}}", "/?edit=".$params["id"], $tpl);
-    $tpl = str_replace("{{ID_DELETE}}", "/?remove=".$params["id"], $tpl);
+
+    if(isset($_SESSION["admin"])):
+        $links_tpl = file_get_contents(LINKS_TEMPLATE);
+        $links_tpl = str_replace("{{ID_EDIT}}", "/?edit=".$params["id"], $links_tpl);
+        $links_tpl = str_replace("{{ID_DELETE}}", "/?remove=".$params["id"], $links_tpl);
+        $tpl = str_replace("<!--{{PLACE_FOR_LINKS_TEMPLATE}}-->", $links_tpl, $tpl);
+    endif;
 
     return $tpl;
 }
